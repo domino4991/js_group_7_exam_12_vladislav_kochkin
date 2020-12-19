@@ -1,6 +1,14 @@
 import {put} from 'redux-saga/effects';
-import {getPicturesError, getPicturesRequest, getPicturesSuccess} from "../actions/picturesActions";
+import {
+    createNewPicError,
+    createNewPicRequest, createNewPicSuccess,
+    getPicturesError,
+    getPicturesRequest,
+    getPicturesSuccess
+} from "../actions/picturesActions";
 import axiosBase from "../../axiosBase";
+import {toast} from "react-toastify";
+import {push} from 'connected-react-router';
 
 export function* getPicturesSaga() {
     yield put(getPicturesRequest());
@@ -12,6 +20,22 @@ export function* getPicturesSaga() {
             yield put(getPicturesError(e.response.data.error));
         } else {
             yield put(getPicturesError(e.message));
+        }
+    }
+}
+
+export function* createNewPicSaga({data}) {
+    yield put(createNewPicRequest());
+    try {
+        const response = yield axiosBase.post('/pictures', data);
+        yield put(createNewPicSuccess());
+        yield toast.success(response.data.message);
+        yield push('/');
+    } catch (e) {
+        if(e.response && e.response.data) {
+            yield put(createNewPicError(e.response.data));
+        } else {
+            yield put(createNewPicError(e.message));
         }
     }
 }
