@@ -16,6 +16,8 @@ app.use(express.static('public'));
 const run = async () => {
     await mongoose.connect(config.database, config.databaseOpt);
 
+    console.log('Connected to MongoDB picDB');
+
     app.use('/users', users);
     app.use('/pictures', pictures);
     app.use((req, res) => {
