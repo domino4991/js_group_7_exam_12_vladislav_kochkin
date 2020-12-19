@@ -8,7 +8,14 @@ const UserSchema = new mongoose.Schema({
     username: {
         type: String,
         required: [true, 'Поле "Логин" обязательно для заполнения'],
-        unique: true
+        unique: true,
+        validate: {
+            validator: async (value) => {
+                const user = await User.findOne({username: value});
+                if(user) return false;
+            },
+            message: "Такой пользователь уже существует"
+        }
     },
     password: {
         type: String,
