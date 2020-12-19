@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:userId', async (req, res) => {
     try {
-        const pictures = await Picture.find({user: req.perams.id}).populate('user', 'username');
+        const pictures = await Picture.find({user: req.params.id}).populate('user', 'username');
         if(pictures.length === 0) return res.status(404).send({error: 'Нет ни одной фотографии'});
         return res.send(pictures);
     } catch (e) {
@@ -38,7 +38,7 @@ router.get('/:userId', async (req, res) => {
     }
 });
 
-router.post('/', auth, async (req, res) => {
+router.post('/', [auth, upload.single('image')], async (req, res) => {
     try {
         const picture = new Picture({
             user: req.user._id,
