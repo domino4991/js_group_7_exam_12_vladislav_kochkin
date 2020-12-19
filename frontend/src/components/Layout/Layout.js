@@ -1,10 +1,11 @@
 import React from 'react';
 import {CssBaseline, Container} from "@material-ui/core";
+import HeaderAppBar from "../HeaderAppBar/HeaderAppBar";
 
 const Layout = props => {
     return (
         <>
-            <header>header</header>
+            <HeaderAppBar />
             <main>
                 <CssBaseline />
                 <Container>
