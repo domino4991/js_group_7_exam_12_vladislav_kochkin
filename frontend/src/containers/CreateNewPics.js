@@ -49,18 +49,20 @@ const CreateNewPics = () => {
 
     const onSubmittedForm = e => {
         e.preventDefault();
-        const formData = new FormData();
-        Object.keys(pic).forEach(key => {
-            formData.append(key, pic[key]);
-        });
-        dispatch(createNewPic(formData));
-        setPic({
-            image: '',
-            name: ''
-        });
-        setTimeout(() => {
-            dispatch(push('/'));
-        }, 3000);
+        if(pic.image !== '' && pic.name !== '') {
+            const formData = new FormData();
+            Object.keys(pic).forEach(key => {
+                formData.append(key, pic[key]);
+            });
+            dispatch(createNewPic(formData));
+            setPic({
+                image: '',
+                name: ''
+            });
+            setTimeout(() => {
+                dispatch(push('/'));
+            }, 3000);
+        }
     }
 
     return (
@@ -85,6 +87,7 @@ const CreateNewPics = () => {
                     type='text'
                     error={getFieldError('name')}
                     value={pic.name}
+                    required
                 />
                 <FormElement
                     label='Картинка'
@@ -94,6 +97,7 @@ const CreateNewPics = () => {
                     type='file'
                     error={getFieldError('image')}
                     value={pic.image}
+                    required
                 />
                 <Button
                     variant='contained'
