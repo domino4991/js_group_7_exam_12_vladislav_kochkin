@@ -3,7 +3,6 @@ import {Typography, makeStyles, Button} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import FormElement from "../components/UI/FormElement/FormElement";
 import {createNewPic} from "../store/actions/picturesActions";
-import {push} from 'connected-react-router';
 
 const useStyles = makeStyles(() => ({
     form: {
