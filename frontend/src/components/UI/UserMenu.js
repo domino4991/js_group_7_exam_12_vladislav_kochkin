@@ -28,7 +28,7 @@ const UserMenu = () => {
             >
                 <MenuItem
                     component={NavLink}
-                    to='/user-pics'
+                    to={`/user-pic/${user._id}`}
                     exact
                 >
                     Мои фотографии
