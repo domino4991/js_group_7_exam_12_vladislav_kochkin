@@ -6,6 +6,7 @@ import Layout from "./components/Layout/Layout";
 import Main from "./containers/Main";
 import LoginRegister from "./containers/LoginRegister";
 import CreateNewPics from "./containers/CreateNewPics";
+import UserPage from "./containers/UserPage";
 
 const ProtectedRoute = ({isAllowed, redirectTo, ...props}) => {
     return isAllowed ?
@@ -40,6 +41,7 @@ const Routes = ({user}) => {
                     component={CreateNewPics}
                     redirectTo='/'
                 />
+                <Route path='/user-pic/:id' exact component={UserPage} />
                 <Route render={() => <h1 style={{textAlign: 'center'}}>404 Page Not Found</h1>} />
             </Switch>
         </Layout>

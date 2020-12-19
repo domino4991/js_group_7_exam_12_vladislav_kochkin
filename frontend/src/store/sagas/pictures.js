@@ -1,7 +1,7 @@
 import {put} from 'redux-saga/effects';
 import {
     createNewPicError,
-    createNewPicRequest, createNewPicSuccess,
+    createNewPicRequest, createNewPicSuccess, deletePicError, deletePicSuccess, getPictures,
     getPicturesError,
     getPicturesRequest,
     getPicturesSuccess
@@ -23,6 +23,19 @@ export function* getPicturesSaga() {
     }
 }
 
+export function* getPicturesUserSaga({id}) {
+    try {
+        const response = yield axiosBase.get(`/pictures/${id}`);
+        yield put(getPicturesSuccess(response.data));
+    } catch (e) {
+        if(e.response && e.response.data) {
+            yield put(getPicturesError(e.response.data.error));
+        } else {
+            yield put(getPicturesError(e.message));
+        }
+    }
+}
+
 export function* createNewPicSaga({data}) {
     yield put(createNewPicRequest());
     try {
@@ -34,6 +47,21 @@ export function* createNewPicSaga({data}) {
             yield put(createNewPicError(e.response.data));
         } else {
             yield put(createNewPicError(e.message));
+        }
+    }
+}
+
+export function* deletePicSaga({id}) {
+    try {
+        const response = yield axiosBase.delete(`/pictures/${id}`);
+        yield toast.success(response.data.message);
+        yield put(deletePicSuccess());
+        yield put(getPictures());
+    } catch (e) {
+        if(e.response && e.response.data) {
+            yield put(deletePicError(e.response.data.error));
+        } else {
+            yield put(deletePicError(e.message));
         }
     }
 }
