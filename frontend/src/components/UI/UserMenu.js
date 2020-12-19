@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
+import {logoutUser} from "../../store/actions/usersActions";
 
 const UserMenu = () => {
     const {user} = useSelector(state => state.users);
@@ -34,15 +35,14 @@ const UserMenu = () => {
                 </MenuItem>
                 <MenuItem
                     component={NavLink}
-                    to='/add-new-recipe'
+                    to='/create-new-pic'
                     exact
                 >
                     Добавить новую фотографию
                 </MenuItem>
                 <MenuItem
                     onClick={() => {
-                        // dispatch(logoutUser())
-                        console.log('Click');
+                        dispatch(logoutUser())
                     }}
                 >
                     Выход
