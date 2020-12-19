@@ -1,9 +1,16 @@
-import React, {useEffect} from 'react';
-import {makeStyles, GridList, GridListTileBar, GridListTile, Typography, ListSubheader} from "@material-ui/core";
+import React, {useEffect, useState} from 'react';
+import {makeStyles,
+    GridList,
+    GridListTileBar,
+    GridListTile,
+    Typography,
+    ListSubheader
+} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import {getPictures} from "../store/actions/picturesActions";
 import {NavLink} from "react-router-dom";
 import {apiUrl} from "../constants";
+import ModalPic from "../components/UI/Modal/Modal";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -18,6 +25,9 @@ const useStyles = makeStyles(() => ({
     link: {
         color: 'inherit',
         fontSize: '14px'
+    },
+    img: {
+        cursor: 'pointer'
     }
 }));
 
@@ -25,10 +35,31 @@ const Main = () => {
     const classes = useStyles();
     const {pictures} = useSelector(state => state.pictures);
     const dispatch = useDispatch();
+    const [picture, setPicture] = useState({
+        img: '',
+        name: ''
+    });
+    const [openModal, setOpenModal] = useState(false);
 
     useEffect(() => {
         dispatch(getPictures());
     }, [dispatch]);
+
+    const handleOpen = (img, name) => {
+        setOpenModal(true);
+        setPicture({
+            img: img,
+            name: name
+        });
+    }
+
+    const handleClose = () => {
+        setPicture({
+            img: '',
+            name: ''
+        });
+        setOpenModal(false);
+    }
 
     return (
         <>
@@ -53,6 +84,7 @@ const Main = () => {
                             src={apiUrl + '/uploads/' + pic.image}
                             alt={pic.name}
                             className={classes.img}
+                            onClick={() => handleOpen(pic.image, pic.name)}
                         />
                         <GridListTileBar
                             title={pic.name}
@@ -70,6 +102,12 @@ const Main = () => {
                         <ListSubheader component="div">December</ListSubheader>
                     </GridListTile>}
                 </GridList>
+                <ModalPic
+                    img={picture.img}
+                    name={picture.name}
+                    open={openModal}
+                    handleClose={handleClose}
+                />
             </div>
         </>
     );
