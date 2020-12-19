@@ -5,9 +5,9 @@ const rootPath = __dirname;
 let dbName;
 
 if(process.env.NODE_ENV === 'test') {
-    dbName = 'musicApp_test';
+    dbName = 'picsDB_test';
 } else {
-    dbName = 'musicApp';
+    dbName = 'picsDB';
 }
 
 module.exports = {
