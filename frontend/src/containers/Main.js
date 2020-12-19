@@ -1,16 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {makeStyles,
-    GridList,
-    GridListTileBar,
-    GridListTile,
+import {
+    makeStyles,
     Typography,
-    ListSubheader
 } from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import {getPictures} from "../store/actions/picturesActions";
-import {NavLink} from "react-router-dom";
-import {apiUrl} from "../constants";
 import ModalPic from "../components/UI/Modal/Modal";
+import GalleryItem from "../components/GalleryItem/GalleryItem";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -19,21 +15,12 @@ const useStyles = makeStyles(() => ({
         justifyContent: 'space-around',
         overflow: 'hidden',
     },
-    gridList: {
-        width: '100%',
-    },
-    link: {
-        color: 'inherit',
-        fontSize: '14px'
-    },
-    img: {
-        cursor: 'pointer'
-    }
 }));
 
 const Main = () => {
     const classes = useStyles();
-    const {pictures} = useSelector(state => state.pictures);
+    const {pictures, picturesError} = useSelector(state => state.pictures);
+    const {user} = useSelector(state => state.users);
     const dispatch = useDispatch();
     const [picture, setPicture] = useState({
         img: '',
@@ -72,43 +59,19 @@ const Main = () => {
                 Галерея
             </Typography>
             <div className={classes.root}>
-                <GridList
-                    cellHeight={180}
-                    className={classes.gridList}
-                >
-                    {pictures ? pictures.map(pic => <GridListTile
-                        key={pic._id}
-                        cols={0.5}
-                    >
-                        <img
-                            src={apiUrl + '/uploads/' + pic.image}
-                            alt={pic.name}
-                            className={classes.img}
-                            onClick={() => handleOpen(pic.image, pic.name)}
-                        />
-                        <GridListTileBar
-                            title={pic.name}
-                            subtitle={
-                                <NavLink
-                                    to={`/user-pic/${pic.user._id}`}
-                                    exact
-                                    className={classes.link}
-                                >
-                                    By: {pic.user.displayName}
-                                </NavLink>
-                            }
-                        />
-                    </GridListTile>) : <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-                        <ListSubheader component="div">December</ListSubheader>
-                    </GridListTile>}
-                </GridList>
-                <ModalPic
-                    img={picture.img}
-                    name={picture.name}
-                    open={openModal}
-                    handleClose={handleClose}
-                />
+               <GalleryItem
+                   pictures={pictures}
+                   picturesError={picturesError}
+                   handleOpen={handleOpen}
+                   user={user}
+               />
             </div>
+            <ModalPic
+                img={picture.img}
+                name={picture.name}
+                open={openModal}
+                handleClose={handleClose}
+            />
         </>
     );
 };
