@@ -37,6 +37,7 @@ const FileInput = ({changedFile, name, label, error, id}) => {
                 className={classes.fileInput}
                 ref={fileInputRef}
                 onChange={e => onChangeFilename(e)}
+                id='form-pic-image-inp'
             />
             <Grid
                 container

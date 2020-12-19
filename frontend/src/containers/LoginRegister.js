@@ -108,6 +108,7 @@ const LoginRegister = (props) => {
                     color='primary'
                     variant='outlined'
                     type='submit'
+                    id='form-login-register-btn'
                 >
                     {url === '/register' ? 'Регистрация' : 'Вход'}
                 </Button>

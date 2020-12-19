@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
@@ -7,8 +7,8 @@ import {logoutUser} from "../../store/actions/usersActions";
 const UserMenu = () => {
     const {user} = useSelector(state => state.users);
     const dispatch = useDispatch();
-
     const [anchorEl, setAnchorEl] = useState(null);
+
     return (
         <>
             <Button
@@ -16,6 +16,7 @@ const UserMenu = () => {
                 aria-haspopup="true"
                 color='inherit'
                 onClick={e => setAnchorEl(e.currentTarget)}
+                id='userDisplayName'
             >
                 {user && user.displayName}
             </Button>
@@ -30,6 +31,7 @@ const UserMenu = () => {
                     component={NavLink}
                     to={`/user-pic/${user._id}`}
                     exact
+                    id='myPhotos'
                 >
                     Мои фотографии
                 </MenuItem>

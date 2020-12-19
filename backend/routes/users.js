@@ -28,7 +28,7 @@ router.post('/sessions', async (req, res) => {
         if(!isMatch) return res.status(400).send({error: 'Password is wrong'});
         user.genToken();
         await user.save({validateBeforeSave: false});
-        return res.send(user);
+        return res.send({user, message: 'Добро пожаловать'});
     } catch (e) {
         return res.status(400).send({error: 'Bad Request'});
     }

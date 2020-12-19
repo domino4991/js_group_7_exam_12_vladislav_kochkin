@@ -34,7 +34,7 @@ const GalleryItem = ({pictures, picturesError, handleOpen, user, userPics}) => {
                 cellHeight={180}
                 className={classes.gridList}
             >
-                {pictures ? pictures.map(pic => <GridListTile
+                {pictures ? pictures.map((pic, i) => <GridListTile
                     key={pic._id}
                     cols={0.5}
                 >
@@ -51,6 +51,7 @@ const GalleryItem = ({pictures, picturesError, handleOpen, user, userPics}) => {
                                 to={`/user-pic/${pic.user._id}`}
                                 exact
                                 className={classes.link}
+                                id={`linkBtn${i}`}
                             >
                                 By: {pic.user.displayName}
                             </NavLink>
@@ -59,6 +60,7 @@ const GalleryItem = ({pictures, picturesError, handleOpen, user, userPics}) => {
                             <IconButton
                                 color='secondary'
                                 onClick={() => dispatch(deletePic(pic._id))}
+                                id={`deleteBtn${i}`}
                             >
                                 <DeleteForeverIcon />
                             </IconButton> : null}

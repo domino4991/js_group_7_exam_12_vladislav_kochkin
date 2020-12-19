@@ -13,7 +13,8 @@ import {toast} from "react-toastify";
 export function* loginUserSaga({data}) {
     try {
         const response = yield axiosBase.post('/users/sessions', data);
-        yield put(loginUserSuccess(response.data));
+        yield put(loginUserSuccess(response.data.user));
+        yield toast.success(response.data.message);
         yield push('/');
     } catch (e) {
         if(e.response && e.response.data) {

@@ -49,20 +49,15 @@ const CreateNewPics = () => {
 
     const onSubmittedForm = e => {
         e.preventDefault();
-        if(pic.image !== '' && pic.name !== '') {
-            const formData = new FormData();
-            Object.keys(pic).forEach(key => {
-                formData.append(key, pic[key]);
-            });
-            dispatch(createNewPic(formData));
-            setPic({
-                image: '',
-                name: ''
-            });
-            setTimeout(() => {
-                dispatch(push('/'));
-            }, 3000);
-        }
+        const formData = new FormData();
+        Object.keys(pic).forEach(key => {
+            formData.append(key, pic[key]);
+        });
+        dispatch(createNewPic(formData));
+        setPic({
+            image: '',
+            name: ''
+        });
     }
 
     return (
@@ -87,7 +82,6 @@ const CreateNewPics = () => {
                     type='text'
                     error={getFieldError('name')}
                     value={pic.name}
-                    required
                 />
                 <FormElement
                     label='Картинка'
@@ -104,6 +98,7 @@ const CreateNewPics = () => {
                     color='primary'
                     fullWidth
                     type='submit'
+                    id='formCreateBtn'
                 >
                     Отправить
                 </Button>
