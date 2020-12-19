@@ -58,7 +58,9 @@ const CreateNewPics = () => {
             image: '',
             name: ''
         });
-        dispatch(push('/'));
+        setTimeout(() => {
+            dispatch(push('/'));
+        }, 3000);
     }
 
     return (
