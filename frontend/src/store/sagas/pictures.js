@@ -8,7 +8,6 @@ import {
 } from "../actions/picturesActions";
 import axiosBase from "../../axiosBase";
 import {toast} from "react-toastify";
-import {push} from 'connected-react-router';
 
 export function* getPicturesSaga() {
     yield put(getPicturesRequest());
@@ -30,7 +29,6 @@ export function* createNewPicSaga({data}) {
         const response = yield axiosBase.post('/pictures', data);
         yield put(createNewPicSuccess());
         yield toast.success(response.data.message);
-        yield push('/');
     } catch (e) {
         if(e.response && e.response.data) {
             yield put(createNewPicError(e.response.data));
