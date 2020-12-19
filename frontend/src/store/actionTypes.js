@@ -1,0 +1,8 @@
+// saga
+export const GET_PICTURES = 'GET_PICTURES';
+
+// redux
+
+export const GET_PICTURES_REQUEST = 'GET_PICTURES_REQUEST';
+export const GET_PICTURES_SUCCESS = 'GET_PICTURES_SUCCESS';
+export const GET_PICTURES_ERROR = 'GET_PICTURES_ERROR';

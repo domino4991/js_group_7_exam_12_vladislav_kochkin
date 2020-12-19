@@ -3,6 +3,7 @@ import {Switch, Route, Redirect} from 'react-router-dom';
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from "./components/Layout/Layout";
+import Main from "./containers/Main";
 
 const ProtectedRoute = ({isAllowed, redirectTo, ...props}) => {
     return isAllowed ?
@@ -15,6 +16,7 @@ const Routes = ({user}) => {
         <Layout>
             <ToastContainer autoClose={3000} />
             <Switch>
+                <Route path='/' exact component={Main} />
                 <Route render={() => <h1 style={{textAlign: 'center'}}>404 Page Not Found</h1>} />
             </Switch>
         </Layout>
