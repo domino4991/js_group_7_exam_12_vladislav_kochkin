@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Typography, Button, makeStyles} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import FormElement from "../components/UI/FormElement/FormElement";
 import FacebookLogin from "../components/FacebookLogin/FacebookLogin";
-import {loginUser, registerUser} from "../store/actions/usersActions";
+import {cleanUsersError, loginUser, registerUser} from "../store/actions/usersActions";
 
 const useStyles = makeStyles(() => ({
     form: {
@@ -23,6 +23,10 @@ const LoginRegister = (props) => {
         password: '',
         displayName: ''
     });
+
+    useEffect(() => {
+        dispatch(cleanUsersError());
+    }, [dispatch, url]);
 
     const onFieldsChange = (e) => {
         const name = e.target.name;
@@ -77,6 +81,7 @@ const LoginRegister = (props) => {
                     value={user.username}
                     error={getFieldError('username')}
                     changed={e => onFieldsChange(e)}
+                    required
                 />
                 <FormElement
                     label='Пароль'
@@ -86,6 +91,7 @@ const LoginRegister = (props) => {
                     value={user.password}
                     error={getFieldError('password')}
                     changed={e => onFieldsChange(e)}
+                    required
                 />
                 {url === '/register' && <FormElement
                     label='Имя'
@@ -95,6 +101,7 @@ const LoginRegister = (props) => {
                     value={user.displayName}
                     error={getFieldError('displayName')}
                     changed={e => onFieldsChange(e)}
+                    required
                 />}
                 <Button
                     fullWidth

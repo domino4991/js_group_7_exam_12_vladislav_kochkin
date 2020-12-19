@@ -1,4 +1,5 @@
 import {
+    CLEAN_USER_ERRORS,
     LOGIN_FACEBOOK,
     LOGIN_USER,
     LOGIN_USER_ERROR,
@@ -19,3 +20,5 @@ export const loginUserFacebook = data => ({type: LOGIN_FACEBOOK, data});
 export const registerUser = data => ({type: REGISTER_USER, data});
 
 export const logoutUser = () => ({type: LOGOUT_USER});
+
+export const cleanUsersError = () => ({type: CLEAN_USER_ERRORS});

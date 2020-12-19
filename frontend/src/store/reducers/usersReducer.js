@@ -1,4 +1,5 @@
 import {
+    CLEAN_USER_ERRORS,
     LOGIN_USER_ERROR,
     LOGIN_USER_SUCCESS, LOGOUT_USER_ERROR,
     LOGOUT_USER_SUCCESS,
@@ -36,6 +37,11 @@ export const usersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 usersError: action.error
+            };
+        case CLEAN_USER_ERRORS:
+            return {
+                ...state,
+                usersError: null
             };
         default:
             return state;

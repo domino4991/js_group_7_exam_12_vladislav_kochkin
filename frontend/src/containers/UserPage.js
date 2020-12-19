@@ -63,7 +63,7 @@ const UserPage = props => {
                     picturesError={picturesError}
                     handleOpen={handleOpen}
                     user={user}
-                    userPics={user._id === id}
+                    userPics={user && user._id === id}
                 />
             </div>
             <ModalPic
