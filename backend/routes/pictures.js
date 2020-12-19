@@ -20,7 +20,7 @@ const upload = multer({storage});
 
 router.get('/', async (req, res) => {
     try {
-        const pictures = await Picture.find().populate('user', 'username');
+        const pictures = await Picture.find().populate('user', 'username displayName');
         if(pictures.length === 0) return res.status(404).send({error: 'На данный момент нет ни одной фотографии'});
         return res.send(pictures);
     } catch (e) {
@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:userId', async (req, res) => {
     try {
-        const pictures = await Picture.find({user: req.params.id}).populate('user', 'username');
+        const pictures = await Picture.find({user: req.params.userId}).populate('user', 'username displayName');
         if(pictures.length === 0) return res.status(404).send({error: 'Нет ни одной фотографии'});
         return res.send(pictures);
     } catch (e) {
@@ -46,7 +46,7 @@ router.post('/', [auth, upload.single('image')], async (req, res) => {
         });
         if(req.file) picture.image = req.file.filename;
         await picture.save();
-        return res.send(picture);
+        return res.send({message: 'Изображение добавлено'});
     } catch (e) {
         return res.status(400).send(e);
     }

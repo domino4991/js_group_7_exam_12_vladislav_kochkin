@@ -14,11 +14,7 @@ router.post('/', async (req, res) => {
         });
         user.genToken();
         await user.save();
-        return res.send({
-            username: user.username,
-            token: user.token,
-            displayName: user.displayName
-        });
+        return res.send({message: 'Регистрация прошла успешно'});
     } catch (e) {
         return res.status(400).send(e);
     }
@@ -32,11 +28,7 @@ router.post('/sessions', async (req, res) => {
         if(!isMatch) return res.status(400).send({error: 'Password is wrong'});
         user.genToken();
         await user.save({validateBeforeSave: false});
-        return res.send({
-            username: user.username,
-            token: user.token,
-            displayName: user.displayName
-        });
+        return res.send(user);
     } catch (e) {
         return res.status(400).send({error: 'Bad Request'});
     }
@@ -58,6 +50,7 @@ router.delete('/sessions', async (req, res) => {
 });
 
 router.post('/facebookLogin', async (req, res) => {
+    console.log(req.body);
     const inputToken = req.body.accessToken;
     const accessToken = config.facebookAccess + '|' + config.facebookSecret;
     const debugToken = `https://graph.facebook.com/debug_token?input_token=${inputToken}&access_token=${accessToken}`;
@@ -81,11 +74,7 @@ router.post('/facebookLogin', async (req, res) => {
         }
         user.genToken();
         await user.save({validateBeforeSave: false});
-        return res.send({
-            username: user.username,
-            token: user.token,
-            displayName: user.displayName
-        });
+        return res.send(user);
     } catch (e) {
         return res.status(401).send({error: 'Facebook token incorrect'});
     }
