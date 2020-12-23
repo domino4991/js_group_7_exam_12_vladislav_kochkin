@@ -11,7 +11,7 @@ const PORT = process.env.NODE_ENV === 'test' ? 8010 : 8000;
 
 app.use(express.json());
 app.use(cors());
-app.use(express.static('public'));
+app.use(express.static('public', __dirname + '../frontend/build'));
 
 const run = async () => {
     await mongoose.connect(config.database, config.databaseOpt);
