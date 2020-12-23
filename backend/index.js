@@ -7,11 +7,11 @@ const users = require('./routes/users');
 const pictures = require('./routes/pictures');
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.NODE_ENV === 'test ? 8010 : 8000;
 
 app.use(express.json());
 app.use(cors());
-app.use(express.static('public', __dirname + '../frontend/build'));
+app.use(express.static('public');
 
 const run = async () => {
     await mongoose.connect(config.database, config.databaseOpt);
