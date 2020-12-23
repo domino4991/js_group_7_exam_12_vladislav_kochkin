@@ -13,7 +13,7 @@ if(process.env.NODE_ENV === 'test') {
 module.exports = {
     rootPath,
     uploadPath: path.join(rootPath, 'public/uploads'),
-    database: process.env.MONGODB_URI || `mongodb://localhost/${dbName}`,
+    database: `mongodb://localhost/${dbName}`,
     databaseOpt: {
         useNewUrlParser: true,
         useUnifiedTopology: true,
